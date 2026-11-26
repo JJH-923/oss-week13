@@ -1,5 +1,6 @@
-// P5: a conversation. The page keeps the list of messages
-// and sends ALL of it to our server every time.
+
+ // P5: a conversation. The page keeps the list of messages
+ // and sends ALL of it to our server every time.
 
 const form = document.querySelector("#chat-form");
 const questionInput = document.querySelector("#question");
@@ -48,6 +49,7 @@ form.addEventListener("submit", async (event) => {
   const started = Date.now();
 
   // TODO P5 (1): add the visitor's message to history.
+  history.push({ role: "user", content: question });
 
   render();
   questionInput.value = "";
@@ -60,6 +62,7 @@ form.addEventListener("submit", async (event) => {
     const answer = await chatServer(history);
 
     // TODO P5 (2): add the model's answer to history.
+    history.push({ role: "assistant", content: answer });
 
     statusEl.textContent = `Sent ${sent} message(s). Answered in ${((Date.now() - started) / 1000).toFixed(1)} s.`;
   } catch (err) {
